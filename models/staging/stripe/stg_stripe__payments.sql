@@ -7,4 +7,4 @@ select
     created,
     _batched_at as batched_at
 
-from {{ source('stripe', 'payments') }}
+from {{ source('stripe', 'payment') }}
