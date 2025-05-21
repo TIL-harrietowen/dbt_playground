@@ -1,10 +1,9 @@
 select
-    id as payment_id,
     orderid as order_id,
-    paymentmethod as payment_method,
     status,
-    amount / 100 as amount,
-    created,
-    _batched_at as batched_at
+    PAYMENTMETHOD as payment_method,
+    {{ cents_to_dollars('amount', 4) }} as amount,
+    max(created) as payment_finalized_date
 
-from {{ source('stripe', 'payments') }}
+from {{ source('stripe', 'payment') }}
+group by 1,2,3
