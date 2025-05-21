@@ -6,4 +6,4 @@ select
     max(created) as payment_finalized_date
 
 from {{ source('stripe', 'payment') }}
-group by 1,2,3
+{{ dbt_utils.group_by(n=3) }}
